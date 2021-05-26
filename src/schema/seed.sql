@@ -4,7 +4,7 @@ VALUES ("Design"),
 ("Marketing"),
 ("Human Resources"),
 ("Accounting"),
-("Development");
+("IT");
 
 -- add roles into "roles" table
 INSERT INTO roles (title, salary, department_id)
@@ -12,8 +12,12 @@ VALUES ("Senior Engineer", 126000, 05),
 ("Junior Engineer", 36000, 05),
 ("Engineer", 86000, 05),
 ("HR Administrator", 48000, 03),
-("Sales Advisor", 35000, 02),
-("Head of Marketing", 93000, 02);
+("HR Assistant", 26000, 03),
+("Sales Manager", 76000, 04)
+("Sales Advisor", 35000, 04),
+("Head of Marketing", 93000, 02),
+("Marketing Assistant", 32000, 02),
+("Content Creator", 45000, 01);
 
 -- add employees into "employee table"
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
