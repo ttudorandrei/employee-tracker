@@ -6,4 +6,3 @@ const db = new Db("employee_tracker_db");
 db.start();
 
 // this will try and connect accepting a callback
-// connection.connect(onConnect);

@@ -26,8 +26,7 @@ CREATE TABLE roles (
   department_id INT,
 );
 
--- creates an "employee" table
-CREATE TABLE employees (
+ CREATE TABLE employees (
   id INT NOT NULL AUTO_INCREMENT,
   first_name VARCHAR(30),
   last_name VARCHAR(30),

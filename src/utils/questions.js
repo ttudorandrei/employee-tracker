@@ -143,7 +143,7 @@ const addEmployeeQuestions = [
   },
 ];
 
-// view all employees
+// view all employees DONE
 // SELECT * FROM employee_tracker_db.employees;
 
 // view all employees by manager
