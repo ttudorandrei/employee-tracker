@@ -1,48 +1,62 @@
 // dependencies
 const inquirer = require("inquirer");
+const mysql = require("mysql");
 
 const { questions, addEmployeeQuestions } = require("./questions");
+const { viewAllEmployeesFromDb } = require("./queries");
 
+const dbOptions = {
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "password",
+  database: "employee_tracker_db",
+};
+
+const connection = mysql.createConnection(dbOptions);
 // this function will run the program
 const init = async () => {
   try {
-    // this is asking the general options questions
-    const answers = await inquirer.prompt(questions);
-    console.log(answers, "1");
-    // if the user chooses to add an employee, he will be presented with the specific questions
-    if (answers.chooseAction === "Add Employee") {
-      const employeeAnswers = await inquirer.prompt(addEmployeeQuestions);
-
-      console.log(employeeAnswers, "2");
-    } else if (answers.chooseAction === "View All Employees") {
-      console.log(
-        "You chose to view all employees! Functionality coming soon!"
-      );
-    } else if (answers.chooseAction === "View All Employees By Department") {
-      console.log(
-        "You chose to view all employees by Department. Functionality coming soon!"
-      );
-    } else if (answers.chooseAction === "View All Employees By Manager") {
-      console.log(
-        "You chose to view all employees by manager. Functionality coming soon!"
-      );
-    } else if (answers.chooseAction === "Remove Employee") {
-      console.log("you chose to remove an employee. functionality coming soon");
-    } else if (answers.chooseAction === "Update Employee") {
-      console.log(
-        "you chose to update an employee. functionality coming soon!"
-      );
-    } else if (answers.chooseAction === "Update Employee Role") {
-      console.log(
-        "you chose to update an employee role. functionality coming soon"
-      );
-    } else if (answers.chooseAction === "Update Employee Manager") {
-      console.log(
-        "you chose to update an employee manager. functionality coming soon."
-      );
+    let inProgress = true;
+    while (inProgress) {
+      const { chooseAction } = await inquirer.prompt(questions);
+      if (chooseAction === "exit") {
+        inProgress = false;
+        connection.end();
+      } else if (chooseAction === "viewAllEmployees") {
+        console.log("viewAllEmployees");
+      } else if (chooseAction === "viewAllDepartments") {
+        console.log("viewAllDepartments");
+      } else if (chooseAction === "viewAllRoles") {
+        console.log("viewAllRoles");
+      } else if (chooseAction === "viewAllEmployeesByDepartment") {
+        console.log("viewAllEmployeesByDepartment");
+      } else if (chooseAction === "viewAllEmployeesByRole") {
+        console.log("viewAllEmployeesByRole");
+      } else if (chooseAction === "addEmployee") {
+        console.log("addEmployee");
+      } else if (chooseAction === "addDepartment") {
+        console.log("addDepartment");
+      } else if (chooseAction === "addRole") {
+        console.log("addRole");
+      } else if (chooseAction === "removeEmployee") {
+        console.log("removeEmployee");
+      } else if (chooseAction === "removeRole") {
+        console.log("removeRole");
+      } else if (chooseAction === "removeDepartment") {
+        console.log("removeDepartment");
+      } else if (chooseAction === "updateEmployee") {
+        console.log("updateEmployee");
+      } else if (chooseAction === "updateEmployeeRole") {
+        console.log("updateEmployeeRole");
+      } else if (chooseAction === "updateEmployeeManager") {
+        console.log("updateEmployeeManager");
+      } else if (chooseAction === "viewBudget") {
+        console.log("viewBudget");
+      }
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 };
 
