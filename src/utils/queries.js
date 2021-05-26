@@ -15,36 +15,45 @@ const displayTable = (data) => {
 };
 
 const viewAllEmployeesFromDb = () => {
-  const handleQuery = (err, rows) => {
-    if (err) throw err;
-    console.log("This is a table presenting all the employees");
-    displayTable(rows);
-  };
+  return new Promise((resolve, reject) => {
+    const handleQuery = (err, rows) => {
+      if (err) reject(err);
+      console.log("This is a table presenting all the employees");
+      resolve(rows);
+    };
 
-  connection.query("SELECT * FROM employee_tracker_db.employees", handleQuery);
+    connection.query(
+      "SELECT * FROM employee_tracker_db.employees",
+      handleQuery
+    );
+  });
 };
 
 const viewAllDepartmentsFromDb = () => {
-  const handleQuery = (err, rows) => {
-    if (err) throw err;
-    console.log("This is a table presenting all the departments");
-    displayTable(rows);
-  };
+  return new Promise((resolve, reject) => {
+    const handleQuery = (err, rows) => {
+      if (err) reject(err);
+      console.log("This is a table presenting all the departments");
+      resolve(rows);
+    };
 
-  connection.query(
-    "SELECT * FROM employee_tracker_db.departments;",
-    handleQuery
-  );
+    connection.query(
+      "SELECT * FROM employee_tracker_db.departments",
+      handleQuery
+    );
+  });
 };
 
 const viewAllRolesFromDb = () => {
-  const handleQuery = (err, rows) => {
-    if (err) throw err;
-    console.log("This is a table presenting all the roles");
-    displayTable(rows);
-  };
+  return new Promise((resolve, reject) => {
+    const handleQuery = (err, rows) => {
+      if (err) reject(err);
+      console.log("This is a table presenting all the roles");
+      resolve(rows);
+    };
 
-  connection.query("SELECT * FROM employee_tracker_db.roles;", handleQuery);
+    connection.query("SELECT * FROM employee_tracker_db.roles", handleQuery);
+  });
 };
 
 module.exports = {
