@@ -3,7 +3,11 @@ const inquirer = require("inquirer");
 const mysql = require("mysql");
 
 const { questions, addEmployeeQuestions } = require("./questions");
-const { viewAllEmployeesFromDb } = require("./queries");
+const {
+  viewAllEmployeesFromDb,
+  viewAllDepartmentsFromDb,
+  viewAllRolesFromDb,
+} = require("./queries");
 
 const dbOptions = {
   host: "localhost",
@@ -24,16 +28,33 @@ const init = async () => {
         inProgress = false;
         connection.end();
       } else if (chooseAction === "viewAllEmployees") {
-        console.log("viewAllEmployees");
+        viewAllEmployeesFromDb();
       } else if (chooseAction === "viewAllDepartments") {
-        console.log("viewAllDepartments");
+        viewAllDepartmentsFromDb();
       } else if (chooseAction === "viewAllRoles") {
-        console.log("viewAllRoles");
+        viewAllRolesFromDb();
       } else if (chooseAction === "viewAllEmployeesByDepartment") {
         console.log("viewAllEmployeesByDepartment");
       } else if (chooseAction === "viewAllEmployeesByRole") {
         console.log("viewAllEmployeesByRole");
       } else if (chooseAction === "addEmployee") {
+        const {
+          employeeFirstName,
+          employeeLastName,
+          employeeDepartment,
+          employeeRole,
+          employeeSalary,
+          employeeManager,
+        } = await inquirer.prompt(addEmployeeQuestions);
+
+        console.log(
+          employeeFirstName,
+          employeeLastName,
+          employeeDepartment,
+          employeeRole,
+          employeeSalary,
+          employeeManager
+        );
         console.log("addEmployee");
       } else if (chooseAction === "addDepartment") {
         console.log("addDepartment");
