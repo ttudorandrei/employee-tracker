@@ -4,14 +4,86 @@ const questions = [
     type: "list",
     message: "What would you like to do?",
     choices: [
-      "View All Employees",
-      "View All Employees By Department",
-      "View All Employees By Manager",
-      "Add Employee",
-      "Remove Employee",
-      "Update Employee",
-      "Update Employee Role",
-      "Update Employee Manager",
+      {
+        value: "viewAllEmployees",
+        name: "View All Employees",
+      },
+
+      {
+        value: "viewAllDepartments",
+        name: "View All Departments",
+      },
+
+      {
+        value: "viewAllRoles",
+        name: "View All Roles",
+      },
+
+      {
+        value: "viewAllEmployeesByDepartment",
+        name: "View All Employees By Department",
+      },
+
+      {
+        value: "viewAllEmployeesByRole",
+        name: "View All Employees By Manager",
+      },
+
+      {
+        value: "addEmployee",
+        name: "Add an Employee",
+      },
+
+      {
+        value: "addDepartment",
+        name: "Add Departments",
+      },
+
+      {
+        value: "addRole",
+        name: "Add Role",
+      },
+
+      {
+        value: "removeEmployee",
+        name: "Remove an Employee",
+      },
+
+      {
+        value: "removeRole",
+        name: "Remove Role",
+      },
+
+      {
+        value: "removeDepartment",
+        name: "Remove Department",
+      },
+
+      {
+        value: "updateEmployee",
+        name: "Update an Employee",
+      },
+
+      {
+        value: "updateEmployeeRole",
+        name: "Update Employee Role",
+      },
+
+      {
+        value: "updateEmployeeManager",
+        name: "Update Employee Manager",
+      },
+
+      {
+        short: "Budget",
+        value: "viewBudget",
+        name: "View Utilised Budget for a Department",
+      },
+      {
+        short: "Exit",
+        value: "exit",
+        name: "Exit",
+      },
     ],
     name: "chooseAction",
   },
