@@ -1,6 +1,7 @@
 // dependencies
 const mysql = require("mysql");
 
+const init = require("./utils/init");
 // object containing our connection setup
 const dbOptions = {
   host: "localhost",
@@ -14,10 +15,11 @@ const dbOptions = {
 const connection = mysql.createConnection(dbOptions);
 
 // If the connection is unsuccessful, the code below will throw an error, else will execute whatever code we choose to put there;
-const onConnect = (err) => {
+const onConnect = async (err) => {
   if (err) throw err;
   console.log(`connected as id ${connection.threadId}`);
-  // this will end
+  await init();
+  // this will end the connection
   connection.end();
 };
 
