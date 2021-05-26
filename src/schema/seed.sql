@@ -1,16 +1,30 @@
 -- add departments into the "departments" table
 INSERT INTO departments (name)
-VALUES ("design");
+VALUES ("Design"),
+("Marketing"),
+("Human Resources"),
+("Accounting"),
+("Development");
 
--- add role into "roles" table
--- fix decimal issue for salary
+-- add roles into "roles" table
 INSERT INTO roles (title, salary, department_id)
-VALUES ("Engineer", 36.001, 01);
+VALUES ("Senior Engineer", 126000, 05),
+("Junior Engineer", 36000, 05),
+("Engineer", 86000, 05),
+("HR Administrator", 48000, 03),
+("Sales Advisor", 35000, 02),
+("Head of Marketing", 93000, 02);
 
--- add employee into "employee table"
+-- add employees into "employee table"
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Peter", "Griffith", 001, 1001);
-
+VALUES ("Peter", "Griffith", 001, 1001),
+("Daniel", "Ricciardo", 002, 1002),
+("Valtteri", "Bottas", 003, 1003),
+("Max", "Verstappen", 004, 1004),
+("Lando", "Norris", 005, 1005),
+("Sergio", "Perez", 006, 1006),
+("Charles", "Leclerc", 007, 1007),
+("Carlos", "Sainz", 008, 1008);
 
 -- view departments
 SELECT * FROM employee_tracker_db.departments;
