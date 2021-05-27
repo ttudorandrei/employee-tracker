@@ -17,26 +17,69 @@ class Db {
     this.connection = mysql.createConnection(dbOptions);
   }
   start() {
-    const onConnect = async (err) => {
-      try {
-        if (err) throw err;
+    return new Promise((resolve, reject) => {
+      const onConnect = (err) => {
+        if (err) reject(err);
         console.log(
           `Connection to ${this.database} database was successful with id ${this.connection.threadId}`
         );
-        await init();
-        // this will end the connection
-        this.connection.end();
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
-    this.connection.connect(onConnect);
+        resolve();
+      };
+      this.connection.connect(onConnect);
+    });
   }
 
-  selectAll() {}
+  end(message) {
+    this.connection.end();
+    console.log(
+      message || `Connection to ${this.database} has been successfully closed.`
+    );
+  }
 
-  selectOne() {}
+  viewAllEmployeesFromDb() {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        console.log("This is a table presenting all the employees");
+        resolve(rows);
+      };
+
+      this.connection.query(
+        "SELECT * FROM employee_tracker_db.employees",
+        handleQuery
+      );
+    });
+  }
+
+  viewAllDepartmentsFromDb = () => {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        console.log("This is a table presenting all the departments");
+        resolve(rows);
+      };
+
+      this.connection.query(
+        "SELECT * FROM employee_tracker_db.departments",
+        handleQuery
+      );
+    });
+  };
+
+  viewAllRolesFromDb = () => {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        console.log("This is a table presenting all the roles");
+        resolve(rows);
+      };
+
+      this.connection.query(
+        "SELECT * FROM employee_tracker_db.roles",
+        handleQuery
+      );
+    });
+  };
 
   deleteAll() {}
 

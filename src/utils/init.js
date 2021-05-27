@@ -1,25 +1,17 @@
 // dependencies
 const inquirer = require("inquirer");
-const mysql = require("mysql");
 
+// dev-created dependencies
+const Db = require("../db/DB");
 const { questions, addEmployeeQuestions } = require("./questions");
-const {
-  viewAllEmployeesFromDb,
-  viewAllDepartmentsFromDb,
-  viewAllRolesFromDb,
-} = require("./queries");
 
-const dbOptions = {
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "password",
-  database: "employee_tracker_db",
-};
-
-const connection = mysql.createConnection(dbOptions);
-// this function will run the program
 const init = async () => {
+  const db = new Db("employee_tracker_db");
+  try {
+    await db.start();
+  } catch (error) {
+    console.log(error);
+  }
   let inProgress = true;
 
   while (inProgress) {
@@ -27,18 +19,23 @@ const init = async () => {
     if (chooseAction === "exit") {
       inProgress = false;
       await connection.end();
-    } else if (chooseAction === "viewAllEmployees") {
-      const data = await viewAllEmployeesFromDb();
+    }
+    if (chooseAction === "viewAllEmployees") {
+      const data = await db.viewAllEmployeesFromDb();
       console.table(data);
-    } else if (chooseAction === "viewAllDepartments") {
-      const data = await viewAllDepartmentsFromDb();
+    }
+    if (chooseAction === "viewAllDepartments") {
+      const data = await db.viewAllDepartmentsFromDb();
       console.table(data);
-    } else if (chooseAction === "viewAllRoles") {
-      const data = await viewAllRolesFromDb();
+    }
+    if (chooseAction === "viewAllRoles") {
+      const data = await db.viewAllRolesFromDb();
       console.table(data);
-    } else if (chooseAction === "viewAllEmployeesByRole") {
+    }
+    if (chooseAction === "viewAllEmployeesByRole") {
       console.log("viewAllEmployeesByRole");
-    } else if (chooseAction === "addEmployee") {
+    }
+    if (chooseAction === "addEmployee") {
       const {
         employeeFirstName,
         employeeLastName,
@@ -57,23 +54,32 @@ const init = async () => {
         employeeManager
       );
       console.log("addEmployee");
-    } else if (chooseAction === "addDepartment") {
+    }
+    if (chooseAction === "addDepartment") {
       console.log("addDepartment");
-    } else if (chooseAction === "addRole") {
+    }
+    if (chooseAction === "addRole") {
       console.log("addRole");
-    } else if (chooseAction === "removeEmployee") {
+    }
+    if (chooseAction === "removeEmployee") {
       console.log("removeEmployee");
-    } else if (chooseAction === "removeRole") {
+    }
+    if (chooseAction === "removeRole") {
       console.log("removeRole");
-    } else if (chooseAction === "removeDepartment") {
+    }
+    if (chooseAction === "removeDepartment") {
       console.log("removeDepartment");
-    } else if (chooseAction === "updateEmployee") {
+    }
+    if (chooseAction === "updateEmployee") {
       console.log("updateEmployee");
-    } else if (chooseAction === "updateEmployeeRole") {
+    }
+    if (chooseAction === "updateEmployeeRole") {
       console.log("updateEmployeeRole");
-    } else if (chooseAction === "updateEmployeeManager") {
+    }
+    if (chooseAction === "updateEmployeeManager") {
       console.log("updateEmployeeManager");
-    } else if (chooseAction === "viewBudget") {
+    }
+    if (chooseAction === "viewBudget") {
       console.log("viewBudget");
     }
   }
