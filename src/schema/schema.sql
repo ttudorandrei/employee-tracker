@@ -1,37 +1,44 @@
 
--- deletes database if exists
+-- run this FIRST
 DROP DATABASE IF EXISTS employee_tracker_db;
--- creates database
 CREATE DATABASE employee_tracker_db;
-;
 
--- uses database
 USE employee_tracker_db;
-;
 
--- creates a "departments" table in the db
 CREATE TABLE departments (
-  -- add an "id" row with a key of id that has to be an integer, it cannot be null, it is a primary key and auto-increments itself
-  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  -- creates a "name" row that is a string, accepting maximum 30 characters
-  name VARCHAR(30)
+  id_departments INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(30),
+  PRIMARY KEY (id_departments)
 );
 
--- creates a "roles" table
 CREATE TABLE roles (
-  id INT NOT NULL AUTO_INCREMENT,
-  title VARCHAR(30),
-  -- this creates a "salary" row that can contain decimals
-  salary DECIMAL(10, 3),
-  department_id INT,
+  id_roles INT NOT NULL AUTO_INCREMENT,
+  title VARCHAR(30) NOT NULL,
+  salary INT,
+  department_id INT NOT NULL,
+  PRIMARY KEY (id_roles),
+ CONSTRAINT fk_departments FOREIGN KEY (department_id) 
+		REFERENCES departments(id) ON DELETE CASCADE
 );
 
  CREATE TABLE employees (
   id INT NOT NULL AUTO_INCREMENT,
-  first_name VARCHAR(30),
-  last_name VARCHAR(30),
-  role_id INT,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
+  role_id INT NOT NULL,
   manager_id INT,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_roles FOREIGN KEY (role_id) 
+			REFERENCES roles(id_roles) ON DELETE CASCADE,
+  CONSTRAINT fk_employees FOREIGN KEY (manager_id) 
+			REFERENCES employees(id) ON DELETE CASCADE
 );
 
+-- /////////////////////////////////////////////////////////////////
+-- STEP 2: go to seedDepartments.sql
 
+-- run this AFTER running the seed files
+-- STEP 5(WIP):
+-- UPDATE employees
+-- SET manager_id = 6
+-- WHERE role_id = 7
