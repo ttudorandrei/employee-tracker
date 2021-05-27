@@ -18,7 +18,7 @@ const init = async () => {
     const { chooseAction } = await inquirer.prompt(questions);
     if (chooseAction === "exit") {
       inProgress = false;
-      await connection.end();
+      await db.end();
     }
     if (chooseAction === "viewAllEmployees") {
       const data = await db.viewAllEmployeesFromDb();
