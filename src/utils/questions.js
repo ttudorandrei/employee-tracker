@@ -106,7 +106,28 @@ const addEmployeeQuestions = [
     type: "list",
     message:
       "Please choose the department the employee is going to be part of:",
-    choices: ["Design", "Marketing", "Human Resources", "Accounting", "IT"],
+    choices: [
+      {
+        value: "design",
+        name: "Design",
+      },
+      {
+        value: "marketing",
+        name: "Marketing",
+      },
+      {
+        value: "humanResources",
+        name: "Human Resources",
+      },
+      {
+        value: "accounting",
+        name: "Accounting",
+      },
+      {
+        value: "it",
+        name: "IT",
+      },
+    ],
     name: "employeeDepartment",
   },
 
@@ -165,20 +186,91 @@ const addEmployeeQuestions = [
   },
 
   {
-    type: "input",
-    message:
-      "Please type in the employee`s manager name. If not applicable, leave empty.",
-    default: "not applicable",
-    name: "employeeManager",
+    type: "confirm",
+    message: "Is the employee a manager?",
+    default: "false",
+    name: "isManager",
   },
 ];
 
-// view all employees by manager
-// find syntax
+const addDepartmentQuestion = [
+  {
+    type: "input",
+    message: "Please type in the department name",
+    name: "newDepartmentName",
+  },
+];
 
-// view all employees by department
-// fin syntax
+const addRoleQuestion = [
+  {
+    type: "input",
+    message: "Please type in the role name",
+    name: "newRoleName",
+  },
+];
 
+const removeEmployeeQuestion = [
+  {
+    type: "list",
+    message: "Please choose an employee to remove",
+    choices: "",
+    name: "specificEmployeeRemove",
+  },
+];
+
+const removeRoleQuestion = [
+  {
+    type: "list",
+    message: "Please choose a role to remove",
+    choices: [],
+    name: "specificRoleRemove",
+  },
+];
+
+const removeDepartmentQuestion = [
+  {
+    type: "list",
+    message: "Please choose a department to remove",
+    choices: "",
+    name: "specificDepartmentRemove",
+  },
+];
+
+const updateEmployeeQuestion = [
+  {
+    type: "list",
+    message: "Which employee would you like to update?",
+    choices: [],
+    name: "specificEmployeeUpdate",
+  },
+];
+
+const updateEmployeeRoleQuestion = [
+  {
+    type: "list",
+    message: "For which employee would you like to update the role?",
+    choices: [],
+    name: "specificEmployeeRoleUpdate",
+  },
+];
+
+const updateEmployeeManagerQuestion = [
+  {
+    type: "list",
+    message: "For which employee would you like to update the manager?",
+    choices: [],
+    name: "specificEmployeeManagerUpdate",
+  },
+];
+
+const viewDepartmentTotalBudget = [
+  {
+    type: "list",
+    message: "Please choose a department to view its total budget",
+    choices: [],
+    name: "viewSpecificDepartmentTotalBudget",
+  },
+];
 // remove employee
 // step 1: present a list of all employees,
 // step 2: choose employee,
@@ -196,4 +288,16 @@ const addEmployeeQuestions = [
 // step 1: show list of all employees
 // step 2: update selected employee role (find syntax)
 
-module.exports = { questions, addEmployeeQuestions };
+module.exports = {
+  questions,
+  addEmployeeQuestions,
+  addDepartmentQuestion,
+  addRoleQuestion,
+  removeEmployeeQuestion,
+  removeRoleQuestion,
+  removeDepartmentQuestion,
+  updateEmployeeQuestion,
+  updateEmployeeRoleQuestion,
+  updateEmployeeManagerQuestion,
+  viewDepartmentTotalBudget,
+};

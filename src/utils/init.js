@@ -3,7 +3,19 @@ const inquirer = require("inquirer");
 
 // dev-created dependencies
 const Db = require("../db/DB");
-const { questions, addEmployeeQuestions } = require("./questions");
+const {
+  questions,
+  addEmployeeQuestions,
+  addDepartmentQuestion,
+  addRoleQuestion,
+  removeEmployeeQuestion,
+  removeRoleQuestion,
+  removeDepartmentQuestion,
+  updateEmployeeQuestion,
+  updateEmployeeRoleQuestion,
+  updateEmployeeManagerQuestion,
+  viewDepartmentTotalBudget,
+} = require("./questions");
 
 const init = async () => {
   const db = new Db("employee_tracker_db");
@@ -42,7 +54,7 @@ const init = async () => {
         employeeDepartment,
         employeeRole,
         employeeSalary,
-        employeeManager,
+        isManager,
       } = await inquirer.prompt(addEmployeeQuestions);
 
       console.log(
@@ -51,36 +63,47 @@ const init = async () => {
         employeeDepartment,
         employeeRole,
         employeeSalary,
-        employeeManager
+        isManager
       );
-      console.log("addEmployee");
+      console.log("Yay! Employee was added successfully!");
     }
     if (chooseAction === "addDepartment") {
-      console.log("addDepartment");
+      const answer = await inquirer.prompt(addDepartmentQuestion);
+
+      console.log(answer);
     }
     if (chooseAction === "addRole") {
-      console.log("addRole");
+      const answer = await inquirer.prompt(addRoleQuestion);
+
+      console.log(answer);
     }
     if (chooseAction === "removeEmployee") {
-      console.log("removeEmployee");
+      const answer = await inquirer.prompt(removeEmployeeQuestion);
+      console.log(answer);
     }
     if (chooseAction === "removeRole") {
-      console.log("removeRole");
+      const answer = await inquirer.prompt(removeRoleQuestion);
+      console.log(answer);
     }
     if (chooseAction === "removeDepartment") {
-      console.log("removeDepartment");
+      const answer = await inquirer.prompt(removeDepartmentQuestion);
+      console.log(answer);
     }
     if (chooseAction === "updateEmployee") {
-      console.log("updateEmployee");
+      const answer = await inquirer.prompt(updateEmployeeQuestion);
+      console.log(answer);
     }
     if (chooseAction === "updateEmployeeRole") {
-      console.log("updateEmployeeRole");
+      const answer = await inquirer.prompt(updateEmployeeRoleQuestion);
+      console.log(answer);
     }
     if (chooseAction === "updateEmployeeManager") {
-      console.log("updateEmployeeManager");
+      const answer = await inquirer.prompt(updateEmployeeManagerQuestion);
+      console.log(answer);
     }
     if (chooseAction === "viewBudget") {
-      console.log("viewBudget");
+      const answer = await inquirer.prompt(viewDepartmentTotalBudget);
+      console.log(answer);
     }
   }
 };
