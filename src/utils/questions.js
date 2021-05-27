@@ -75,12 +75,11 @@ const questions = [
       },
 
       {
-        short: "Budget",
         value: "viewBudget",
         name: "View Utilised Budget for a Department",
       },
+
       {
-        short: "Exit",
         value: "exit",
         name: "Exit",
       },
@@ -115,19 +114,50 @@ const addEmployeeQuestions = [
     type: "list",
     message: "Please choose the role the employee has:",
     choices: [
-      "Junior Engineer",
-      "Engineer",
-      "Senior Engineer",
-      "HR Administrator",
-      "HR Assistant",
-      "Sales Manager",
-      "Sales Advisor",
-      "Head of Marketing",
-      "Marketing Assistant",
-      "Content Creator",
+      {
+        value: "juniorEngineer",
+        name: "Junior Engineer",
+      },
+      {
+        value: "engineer",
+        name: "Engineer",
+      },
+      {
+        value: "seniorEngineer",
+        name: "Senior Engineer",
+      },
+      {
+        value: "hrAdministrator",
+        name: "HR Administrator",
+      },
+      {
+        value: "hrAssistant",
+        name: "HR Assistant",
+      },
+      {
+        value: "salesManager",
+        name: "Sales Manager",
+      },
+      {
+        value: "salesAdvisor",
+        name: "Sales Advisor",
+      },
+      {
+        value: "headOfMarketing",
+        name: "Head of Marketing",
+      },
+      {
+        value: "marketingAssistant",
+        name: "Marketing Assistant",
+      },
+      {
+        value: "contentCreator",
+        name: "Content Creator",
+      },
     ],
     name: "employeeRole",
   },
+
   {
     type: "input",
     message: "Please type in the employee salary. Do NOT use decimals.",
@@ -142,9 +172,6 @@ const addEmployeeQuestions = [
     name: "employeeManager",
   },
 ];
-
-// view all employees DONE
-// SELECT * FROM employee_tracker_db.employees;
 
 // view all employees by manager
 // find syntax
