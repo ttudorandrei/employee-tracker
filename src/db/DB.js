@@ -81,14 +81,14 @@ class Db {
     });
   };
 
-  // WIP
+  // WIP, NOT DONE
   addNewEmployee = ({
     employeeFirstName,
     employeeLastName,
     employeeDepartment,
     employeeRole,
     employeeSalary,
-    isManager,
+    hasManager,
   }) => {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
@@ -102,9 +102,6 @@ class Db {
         [employeeFirstName, employeeLastName, employeeRole],
         function (err, result) {
           if (err) throw err;
-          console.log(
-            `Department [${answer.newDepartmentName}] inserted into [departments] table`
-          );
         },
         handleQuery
       );
@@ -114,12 +111,23 @@ class Db {
         [employeeDepartment, employeeSalary],
         function (err, result) {
           if (err) throw err;
-          console.log(
-            `Department [${answer.newDepartmentName}] inserted into [departments] table`
-          );
         },
         handleQuery
       );
+
+      if (hasManager) {
+        this.connection.query(
+          "UPDATE employees SET manager_id=? WHERE role_id=?",
+          [hasManager, employeeRole],
+          function (err, result) {
+            if (err) throw err;
+            console.log(
+              `Employee ${employeeLastName}, ${employeeFirstName} was succesfully added to the database!`
+            );
+          },
+          handleQuery
+        );
+      }
     });
   };
 

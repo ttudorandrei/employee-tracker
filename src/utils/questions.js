@@ -141,50 +141,8 @@ const addEmployeeQuestions = [
   },
 
   {
-    type: "list",
-    message: "Please choose the role the employee has:",
-    choices: [
-      {
-        value: "juniorEngineer",
-        name: "Junior Engineer",
-      },
-      {
-        value: "engineer",
-        name: "Engineer",
-      },
-      {
-        value: "seniorEngineer",
-        name: "Senior Engineer",
-      },
-      {
-        value: "hrAdministrator",
-        name: "HR Administrator",
-      },
-      {
-        value: "hrAssistant",
-        name: "HR Assistant",
-      },
-      {
-        value: "salesManager",
-        name: "Sales Manager",
-      },
-      {
-        value: "salesAdvisor",
-        name: "Sales Advisor",
-      },
-      {
-        value: "headOfMarketing",
-        name: "Head of Marketing",
-      },
-      {
-        value: "marketingAssistant",
-        name: "Marketing Assistant",
-      },
-      {
-        value: "contentCreator",
-        name: "Content Creator",
-      },
-    ],
+    type: "input",
+    message: "Please type in the role id the employee has:",
     name: "employeeRole",
   },
 
@@ -195,10 +153,9 @@ const addEmployeeQuestions = [
   },
 
   {
-    type: "confirm",
-    message: "Is the employee a manager?",
-    default: "false",
-    name: "isManager",
+    type: "input",
+    message: "Does the employee have a manager? If not, please leave empty.",
+    name: "hasManager",
   },
 ];
 

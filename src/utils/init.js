@@ -54,7 +54,7 @@ const init = async () => {
         employeeDepartment,
         employeeRole,
         employeeSalary,
-        isManager,
+        hasManager,
       } = await inquirer.prompt(addEmployeeQuestions);
 
       await db.addNewEmployee({
@@ -63,7 +63,7 @@ const init = async () => {
         employeeDepartment,
         employeeRole,
         employeeSalary,
-        isManager,
+        hasManager,
       });
 
       console.log("Yay! Employee was added successfully!");
