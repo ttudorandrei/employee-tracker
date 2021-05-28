@@ -81,7 +81,113 @@ class Db {
     });
   };
 
-  deleteAll() {}
+  // WIP
+  addNewEmployee = ({
+    employeeFirstName,
+    employeeLastName,
+    employeeDepartment,
+    employeeRole,
+    employeeSalary,
+    isManager,
+  }) => {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        console.log(`You have successfully added a new employee`);
+        resolve(rows);
+      };
+
+      this.connection.query(
+        "INSERT INTO employees (first_name, last_name, role_id) VALUE (?, ?, ?)",
+        [employeeFirstName, employeeLastName, employeeRole],
+        function (err, result) {
+          if (err) throw err;
+          console.log(
+            `Department [${answer.newDepartmentName}] inserted into [departments] table`
+          );
+        },
+        handleQuery
+      );
+
+      this.connection.query(
+        "INSERT INTO roles (title, salary) VALUES (?, ?)",
+        [employeeDepartment, employeeSalary],
+        function (err, result) {
+          if (err) throw err;
+          console.log(
+            `Department [${answer.newDepartmentName}] inserted into [departments] table`
+          );
+        },
+        handleQuery
+      );
+    });
+  };
+
+  addNewDepartment = (answer) => {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        console.log(`You have successfully added a new department`);
+        resolve(rows);
+      };
+
+      this.connection.query(
+        "INSERT INTO departments (name) VALUE (?)",
+        answer.newDepartmentName,
+        function (err, result) {
+          if (err) throw err;
+          console.log(
+            `Department [${answer.newDepartmentName}] inserted into [departments] table`
+          );
+        },
+        handleQuery
+      );
+    });
+  };
+
+  addNewRole = (answer) => {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        console.log(`You have successfully added a new role`);
+        resolve(rows);
+      };
+
+      this.connection.query(
+        "INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)",
+        [answer.newRoleName, answer.salaryValue, answer.newRoleDepartmentId],
+        function (err, result) {
+          if (err) throw err;
+          console.log("Role inserted");
+        },
+        handleQuery
+      );
+    });
+  };
+
+  viewEmployeesByRole = (answer) => {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        console.log(
+          `You are viewing employees that have ${answer} as manager:`
+        );
+        resolve(rows);
+      };
+
+      this.connection.query(
+        "SELECT * FROM employees WHERE role_id=?",
+        answer.newDepartmentName,
+        function (err, result) {
+          if (err) throw err;
+          console.log(
+            `Department [${answer.newDepartmentName}] inserted into [departments] table`
+          );
+        },
+        handleQuery
+      );
+    });
+  };
 
   deleteOne() {}
 

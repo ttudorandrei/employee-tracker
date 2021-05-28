@@ -7,7 +7,7 @@ const {
   questions,
   addEmployeeQuestions,
   addDepartmentQuestion,
-  addRoleQuestion,
+  addRoleQuestions,
   removeEmployeeQuestion,
   removeRoleQuestion,
   removeDepartmentQuestion,
@@ -57,25 +57,26 @@ const init = async () => {
         isManager,
       } = await inquirer.prompt(addEmployeeQuestions);
 
-      console.log(
+      await db.addNewEmployee({
         employeeFirstName,
         employeeLastName,
         employeeDepartment,
         employeeRole,
         employeeSalary,
-        isManager
-      );
+        isManager,
+      });
+
       console.log("Yay! Employee was added successfully!");
     }
     if (chooseAction === "addDepartment") {
       const answer = await inquirer.prompt(addDepartmentQuestion);
 
-      console.log(answer);
+      await db.addNewDepartment(answer);
     }
     if (chooseAction === "addRole") {
-      const answer = await inquirer.prompt(addRoleQuestion);
+      const answer = await inquirer.prompt(addRoleQuestions);
 
-      console.log(answer);
+      await db.addNewRole(answer);
     }
     if (chooseAction === "removeEmployee") {
       const answer = await inquirer.prompt(removeEmployeeQuestion);
