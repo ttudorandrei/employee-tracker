@@ -31,14 +31,34 @@ CREATE TABLE roles (
   CONSTRAINT fk_roles FOREIGN KEY (role_id) 
 			REFERENCES roles(id_roles) ON DELETE CASCADE,
   CONSTRAINT fk_employees FOREIGN KEY (manager_id) 
-			REFERENCES employees(id) ON DELETE CASCADE
+			REFERENCES employees(id) ON DELETE SET NULL
 );
 
 -- /////////////////////////////////////////////////////////////////
 -- STEP 2: go to seedDepartments.sql
 
 -- run this AFTER running the seed files
--- STEP 5(WIP):
--- UPDATE employees
--- SET manager_id = 6
--- WHERE role_id = 7
+-- STEP 5 add manager id to employees:
+UPDATE employees
+SET manager_id = 6
+WHERE role_id = 7
+
+UPDATE employees
+SET manager_id = 8
+WHERE role_id = 9
+
+UPDATE employees
+SET manager_id = 8
+WHERE role_id = 10
+
+UPDATE employees
+SET manager_id = 4
+WHERE role_id = 5
+
+UPDATE employees
+SET manager_id = 1
+WHERE role_id = 2
+
+UPDATE employees
+SET manager_id = 1
+WHERE role_id = 3
