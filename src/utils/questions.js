@@ -88,6 +88,15 @@ const questions = [
   },
 ];
 
+const viewEmployeeByRole = [
+  {
+    type: "list",
+    message: "Please choose a role to filter employees by",
+    name: "filterEmployeesByRole",
+    choices: "",
+  },
+];
+
 // questions asked if the user chooses to add an employee
 const addEmployeeQuestions = [
   {
