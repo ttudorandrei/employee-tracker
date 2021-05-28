@@ -26,7 +26,7 @@ const questions = [
 
       {
         value: "viewAllEmployeesByRole",
-        name: "View All Employees By Manager",
+        name: "View All Employees By Role",
       },
 
       {
@@ -201,11 +201,22 @@ const addDepartmentQuestion = [
   },
 ];
 
-const addRoleQuestion = [
+const addRoleQuestions = [
   {
     type: "input",
-    message: "Please type in the role name",
+    message: "Please type in the role name:",
     name: "newRoleName",
+  },
+  {
+    type: "input",
+    message: "Please type in the salary (MUST be a number. NO DECIMALS):",
+    name: "salaryValue",
+  },
+  {
+    type: "input",
+    message:
+      "Please type in the department id (MUST be a number. NO DECIMALS):",
+    name: "newRoleDepartmentId",
   },
 ];
 
@@ -292,7 +303,7 @@ module.exports = {
   questions,
   addEmployeeQuestions,
   addDepartmentQuestion,
-  addRoleQuestion,
+  addRoleQuestions,
   removeEmployeeQuestion,
   removeRoleQuestion,
   removeDepartmentQuestion,
