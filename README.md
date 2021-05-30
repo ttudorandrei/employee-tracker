@@ -88,4 +88,4 @@ You can view the GitHub Repository by clicking [here](https://github.com/ttudora
 
 ## Link to Video Recording demonstrating the working application
 
-You can view a recording of the working application by clicking [here]()
+You can view a recording of the working application by clicking [here](https://drive.google.com/file/d/1ujfFSBoUeQmi9RG-vltpNc8rJjq23omu/view)
