@@ -5,6 +5,7 @@ const inquirer = require("inquirer");
 const Db = require("../db/DB");
 const {
   questions,
+  // viewEmployeesByRoleQuestion,
   addEmployeeQuestions,
   addDepartmentQuestion,
   addRoleQuestions,
@@ -12,7 +13,6 @@ const {
   removeRoleQuestion,
   removeDepartmentQuestion,
   updateEmployeeRoleQuestion,
-  updateEmployeeManagerQuestion,
   viewDepartmentTotalBudget,
 } = require("./questions");
 
@@ -55,6 +55,13 @@ const init = async () => {
       const data = await db.viewAllRolesFromDb();
       console.table(data);
     }
+
+    // if (chooseAction === "filterEmployeesByRole") {
+    //   // logs a table with all the employees that share the same role
+    //   const answer = await inquirer.prompt(viewEmployeesByRoleQuestion);
+    //   // const data = await db.vieEmployeesByRole(answer);
+    //   console.log(answer);
+    // }
 
     if (chooseAction === "addEmployee") {
       // adds new employee to the database
