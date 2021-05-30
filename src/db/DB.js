@@ -1,4 +1,5 @@
 // dependencies
+const inquirer = require("inquirer");
 const mysql = require("mysql");
 const init = require("../utils/init");
 
@@ -81,15 +82,9 @@ class Db {
     });
   };
 
-  // WIP, NOT DONE
-  addNewEmployee = ({
-    employeeFirstName,
-    employeeLastName,
-    employeeDepartment,
-    employeeRole,
-    employeeSalary,
-    hasManager,
-  }) => {
+  addNewEmployee = (answer) => {
+    const { employeeFirstName, employeeLastName, employeeRole, hasManager } =
+      answer;
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
@@ -106,28 +101,19 @@ class Db {
         handleQuery
       );
 
-      this.connection.query(
-        "INSERT INTO roles (title, salary) VALUES (?, ?)",
-        [employeeDepartment, employeeSalary],
-        function (err, result) {
-          if (err) throw err;
-        },
-        handleQuery
-      );
-
       if (hasManager) {
         this.connection.query(
-          "UPDATE employees SET manager_id=? WHERE role_id=?",
-          [hasManager, employeeRole],
+          "UPDATE employees SET manager_id=? WHERE first_name=? AND last_name=?",
+          [hasManager, employeeFirstName, employeeLastName],
           function (err, result) {
             if (err) throw err;
             console.log(
-              `Employee ${employeeLastName}, ${employeeFirstName} was succesfully added to the database!`
+              `Employee ${employeeLastName}, ${employeeFirstName} was successfully added to the database!`
             );
-          },
-          handleQuery
+          }
         );
       }
+      handleQuery;
     });
   };
 
@@ -162,8 +148,17 @@ class Db {
       };
 
       this.connection.query(
-        "INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)",
-        [answer.newRoleName, answer.salaryValue, answer.newRoleDepartmentId],
+        "INSERT INTO roles (title, salary) VALUES (?, ?)",
+        [answer.newRoleName, answer.salaryValue],
+        function (err, result) {
+          if (err) throw err;
+        },
+        handleQuery
+      );
+
+      this.connection.query(
+        "UPDATE roles SET department_id=? WHERE title=?",
+        [answer.newRoleDepartmentId, answer.newRoleName],
         function (err, result) {
           if (err) throw err;
           console.log("Role inserted");
@@ -173,35 +168,68 @@ class Db {
     });
   };
 
-  viewEmployeesByRole = (answer) => {
-    return new Promise((resolve, reject) => {
+  updateEmployeeRole = () => {
+    // //////////////////////////////////////////////
+    return new Promise(async (resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
-        console.log(
-          `You are viewing employees that have ${answer} as manager:`
-        );
+        console.log(`You have successfully updated an employee role!`);
         resolve(rows);
       };
 
+      // get all employees
+      const employeeQuery = "SELECT * FROM employees";
+      const employeesList = await this.connection.query(employeeQuery);
+
+      const employeeChoices = (employees) => {
+        return employees.map((employee) => {
+          const { first_name, last_name } = employee;
+          return [
+            {
+              name: first_name,
+              value: "firstName",
+            },
+            {
+              name: last_name,
+              value: "lastName",
+            },
+          ];
+        });
+      };
+
+      const answers = await inquirer.prompt(
+        {
+          type: "list",
+          message: "Which employee would you like to update?",
+          choices: employeeChoices(employeesList),
+          name: "employeeChoice",
+        },
+        {
+          type: "input",
+          message:
+            "Please type in the role id you want to attribute to the employee",
+          name: "newRoleId",
+        }
+      );
+
       this.connection.query(
-        "SELECT * FROM employees WHERE role_id=?",
-        answer.newDepartmentName,
+        "UPDATE employees SET role_id=? WHERE firstName=? AND lastName=?",
+        answers.newRoleId,
+        answers.newRoleId,
+        answers.employeeChoice,
         function (err, result) {
           if (err) throw err;
-          console.log(
-            `Department [${answer.newDepartmentName}] inserted into [departments] table`
-          );
         },
         handleQuery
       );
     });
+
+    // ///////////////////////////////////////
+
+    // prompt user to choose which employee he wants to update role for
+    // question choices should be an array made of the list of employees
+    // update role for chosen employee
   };
-
-  deleteOne() {}
-
-  insert() {}
-
-  update() {}
 }
 
 module.exports = Db;

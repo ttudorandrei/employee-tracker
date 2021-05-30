@@ -112,44 +112,9 @@ const addEmployeeQuestions = [
   },
 
   {
-    type: "list",
-    message:
-      "Please choose the department the employee is going to be part of:",
-    choices: [
-      {
-        value: "design",
-        name: "Design",
-      },
-      {
-        value: "marketing",
-        name: "Marketing",
-      },
-      {
-        value: "humanResources",
-        name: "Human Resources",
-      },
-      {
-        value: "accounting",
-        name: "Accounting",
-      },
-      {
-        value: "it",
-        name: "IT",
-      },
-    ],
-    name: "employeeDepartment",
-  },
-
-  {
     type: "input",
     message: "Please type in the role id the employee has:",
     name: "employeeRole",
-  },
-
-  {
-    type: "input",
-    message: "Please type in the employee salary. Do NOT use decimals.",
-    name: "employeeSalary",
   },
 
   {

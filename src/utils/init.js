@@ -44,27 +44,10 @@ const init = async () => {
       const data = await db.viewAllRolesFromDb();
       console.table(data);
     }
-    if (chooseAction === "viewAllEmployeesByRole") {
-      console.log("viewAllEmployeesByRole");
-    }
     if (chooseAction === "addEmployee") {
-      const {
-        employeeFirstName,
-        employeeLastName,
-        employeeDepartment,
-        employeeRole,
-        employeeSalary,
-        hasManager,
-      } = await inquirer.prompt(addEmployeeQuestions);
+      const answer = await inquirer.prompt(addEmployeeQuestions);
 
-      await db.addNewEmployee({
-        employeeFirstName,
-        employeeLastName,
-        employeeDepartment,
-        employeeRole,
-        employeeSalary,
-        hasManager,
-      });
+      await db.addNewEmployee(answer);
 
       console.log("Yay! Employee was added successfully!");
     }

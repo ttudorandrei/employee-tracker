@@ -62,3 +62,11 @@ WHERE role_id = 2
 UPDATE employees
 SET manager_id = 1
 WHERE role_id = 3
+
+
+
+-- view employees and their respective role id
+SELECT first_name, last_name, role_id FROM employees LEFT JOIN roles ON employees.role_id=roles.id_roles
+
+-- table will return first_name | last_name | title
+SELECT employees.first_name, employees.last_name, roles.title FROM employees LEFT JOIN roles ON employees.role_id=roles.id_roles
