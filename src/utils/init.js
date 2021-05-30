@@ -63,6 +63,11 @@ const init = async () => {
     //   console.log(answer);
     // }
 
+    if (chooseAction === "viewEmployeesAndTheirRoles") {
+      const data = await db.vieEmployeesAndRoles();
+      console.table(data);
+    }
+
     if (chooseAction === "addEmployee") {
       // adds new employee to the database
       const answer = await inquirer.prompt(addEmployeeQuestions);

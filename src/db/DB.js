@@ -111,7 +111,20 @@ class Db {
   //   });
   // };
 
-  viewEmployeesByManager = () => {};
+  vieEmployeesAndRoles = () => {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        console.log("This is a table presenting the employees and their roles");
+        resolve(rows);
+      };
+
+      this.connection.query(
+        "SELECT employees.first_name, employees.last_name, roles.title FROM employees LEFT JOIN roles ON employees.role_id=roles.id_roles",
+        handleQuery
+      );
+    });
+  };
 
   // this allows the user to add a new department
   addNewEmployee = (answer) => {
@@ -179,16 +192,6 @@ class Db {
         [newRoleName, salaryValue, newRoleDepartmentId],
         handleQuery
       );
-
-      // this.connection.query(
-      //   "UPDATE roles SET department_id=? WHERE title=?",
-      //   [newRoleDepartmentId, newRoleName],
-      //   function (err, result) {
-      //     if (err) throw err;
-      //     console.log("Role inserted");
-      //   },
-      //   handleQuery
-      // );
     });
   };
 

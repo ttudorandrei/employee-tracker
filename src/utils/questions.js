@@ -25,6 +25,11 @@ const questions = [
       // },
 
       {
+        value: "viewEmployeesAndTheirRoles",
+        name: "View All Employees and Their Roles",
+      },
+
+      {
         value: "addEmployee",
         name: "Add an Employee",
       },
