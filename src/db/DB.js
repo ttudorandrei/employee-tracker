@@ -148,7 +148,9 @@ class Db {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
-        console.log(`You have successfully added a new department`);
+        console.log(
+          `You have successfully added a new department: ${answer.newDepartmentName}`
+        );
         resolve(rows);
       };
 
@@ -162,28 +164,31 @@ class Db {
 
   // this allows the user to add a new role
   addNewRole = (answer) => {
+    const { newRoleName, salaryValue, newRoleDepartmentId } = answer;
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
-        console.log(`You have successfully added a new role`);
+        console.log(
+          `You have successfully added a new role: ${newRoleName} that pays ${salaryValue} and has an id of ${newRoleDepartmentId}.`
+        );
         resolve(rows);
       };
 
       this.connection.query(
-        "INSERT INTO roles (title, salary) VALUES (?, ?)",
-        [answer.newRoleName, answer.salaryValue],
+        "INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)",
+        [newRoleName, salaryValue, newRoleDepartmentId],
         handleQuery
       );
 
-      this.connection.query(
-        "UPDATE roles SET department_id=? WHERE title=?",
-        [answer.newRoleDepartmentId, answer.newRoleName],
-        function (err, result) {
-          if (err) throw err;
-          console.log("Role inserted");
-        },
-        handleQuery
-      );
+      // this.connection.query(
+      //   "UPDATE roles SET department_id=? WHERE title=?",
+      //   [newRoleDepartmentId, newRoleName],
+      //   function (err, result) {
+      //     if (err) throw err;
+      //     console.log("Role inserted");
+      //   },
+      //   handleQuery
+      // );
     });
   };
 
@@ -196,7 +201,7 @@ class Db {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
         console.log(
-          `You have successfully modified ${choiceEmployeeFirstName} ${choiceEmployeeLastName}`
+          `You have successfully modified the role that ${choiceEmployeeFirstName} ${choiceEmployeeLastName} has.`
         );
         resolve(rows);
       };
@@ -217,7 +222,7 @@ class Db {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
         console.log(
-          `You have successfully removed ${employeeToRemoveFirstName} ${employeeToRemoveLastName}`
+          `You have successfully removed ${employeeToRemoveFirstName} ${employeeToRemoveLastName} from the database.`
         );
         resolve(rows);
       };
@@ -236,7 +241,9 @@ class Db {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
-        console.log(`You have successfully removed the ${answer} department`);
+        console.log(
+          `You have successfully removed the ${answer} department from the database.`
+        );
         resolve(rows);
       };
 
@@ -256,7 +263,7 @@ class Db {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
         console.log(
-          `You have successfully removed ${specificRoleRemove} from roles table`
+          `You have successfully removed ${specificRoleRemove} from the database.`
         );
         resolve(rows);
       };
