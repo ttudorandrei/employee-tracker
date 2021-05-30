@@ -175,9 +175,8 @@ const removeRoleQuestion = [
 
 const removeDepartmentQuestion = [
   {
-    type: "list",
-    message: "Please choose a department to remove",
-    choices: "",
+    type: "input",
+    message: "Please type in the name of the department you want to remove",
     name: "specificDepartmentRemove",
   },
 ];

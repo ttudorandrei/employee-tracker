@@ -206,6 +206,43 @@ class Db {
       );
     });
   };
+
+  removeDepartment = (answer) => {
+    const { specificDepartmentRemove } = answer;
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        console.log(`You have successfully removed the ${answer} department`);
+        resolve(rows);
+      };
+
+      this.connection.query(
+        "DELETE FROM departments WHERE name=?",
+        specificDepartmentRemove,
+        handleQuery
+      );
+    });
+  };
+
+  removeEmployee = (answer) => {
+    const { employeeToRemoveFirstName, employeeToRemoveLastName } = answer;
+
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        console.log(
+          `You have successfully removed ${employeeToRemoveFirstName} ${employeeToRemoveLastName}`
+        );
+        resolve(rows);
+      };
+
+      this.connection.query(
+        "DELETE FROM employees WHERE first_name=? AND last_name=?",
+        [employeeToRemoveFirstName, employeeToRemoveLastName],
+        handleQuery
+      );
+    });
+  };
 }
 
 module.exports = Db;
