@@ -1,5 +1,4 @@
 // dependencies
-const inquirer = require("inquirer");
 const mysql = require("mysql");
 
 // creates a class for handling all of the init functionality
@@ -98,10 +97,13 @@ class Db {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
-        console.log(`You have successfully added a new employee`);
+        console.log(
+          `You have successfully added ${employeeFirstName} ${employeeLastName} as a new employee`
+        );
         resolve(rows);
       };
 
+      // if manager id is typed in, it will be added to the table, else it will be declared as a null field
       if (hasManager) {
         this.connection.query(
           "INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUE (?, ?, ?, ?)",
@@ -118,6 +120,7 @@ class Db {
     });
   };
 
+  // this allows the user to add a new department
   addNewDepartment = (answer) => {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
@@ -129,17 +132,12 @@ class Db {
       this.connection.query(
         "INSERT INTO departments (name) VALUE (?)",
         answer.newDepartmentName,
-        function (err, result) {
-          if (err) throw err;
-          console.log(
-            `Department [${answer.newDepartmentName}] inserted into [departments] table`
-          );
-        }
-        // handleQuery
+        handleQuery
       );
     });
   };
 
+  // this allows the user to add a new role
   addNewRole = (answer) => {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
@@ -151,9 +149,6 @@ class Db {
       this.connection.query(
         "INSERT INTO roles (title, salary) VALUES (?, ?)",
         [answer.newRoleName, answer.salaryValue],
-        function (err, result) {
-          if (err) throw err;
-        },
         handleQuery
       );
 
@@ -169,24 +164,29 @@ class Db {
     });
   };
 
+  // this allows the user to update the employee role
   updateEmployeeRole = (answers) => {
+    const { choiceEmployeeFirstName, choiceEmployeeLastName, newRoleId } =
+      answers;
+
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
-        console.log(`You have successfully updated an employee role!`);
+        console.log(
+          `You have successfully modified ${choiceEmployeeFirstName} ${choiceEmployeeLastName}`
+        );
         resolve(rows);
       };
 
       this.connection.query(
-        "UPDATE employees SET role_id=? WHERE firstName=? AND lastName=?",
-        answers.newRoleId,
-        answers.choiceEmployeeFirstName,
-        answers.choiceEmployeeLastName,
+        "UPDATE employees SET role_id=? WHERE first_name=? AND last_name=?",
+        [newRoleId, choiceEmployeeFirstName, choiceEmployeeLastName],
         handleQuery
       );
     });
   };
 
+  // this allows the user to remove an employee and all of its associated data
   removeEmployee = (answer) => {
     const { employeeToRemoveFirstName, employeeToRemoveLastName } = answer;
 
@@ -207,6 +207,7 @@ class Db {
     });
   };
 
+  // this allows the user to remove an employee an all of its associated data
   removeDepartment = (answer) => {
     const { specificDepartmentRemove } = answer;
     return new Promise((resolve, reject) => {
@@ -224,6 +225,7 @@ class Db {
     });
   };
 
+  // this allows the user to remove a role and all of its associated data
   removeRole = (answer) => {
     const { specificRoleRemove } = answer;
 
@@ -245,4 +247,5 @@ class Db {
   };
 }
 
+// this exports the Db class
 module.exports = Db;

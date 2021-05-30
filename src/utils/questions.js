@@ -20,16 +20,6 @@ const questions = [
       },
 
       {
-        value: "viewAllEmployeesByDepartment",
-        name: "View All Employees By Department",
-      },
-
-      {
-        value: "viewAllEmployeesByRole",
-        name: "View All Employees By Role",
-      },
-
-      {
         value: "addEmployee",
         name: "Add an Employee",
       },
@@ -60,18 +50,8 @@ const questions = [
       },
 
       {
-        value: "updateEmployee",
-        name: "Update an Employee",
-      },
-
-      {
         value: "updateEmployeeRole",
         name: "Update Employee Role",
-      },
-
-      {
-        value: "updateEmployeeManager",
-        name: "Update Employee Manager",
       },
 
       {
@@ -85,15 +65,6 @@ const questions = [
       },
     ],
     name: "chooseAction",
-  },
-];
-
-const viewEmployeeByRole = [
-  {
-    type: "list",
-    message: "Please choose a role to filter employees by",
-    name: "filterEmployeesByRole",
-    choices: "",
   },
 ];
 
@@ -198,20 +169,10 @@ const updateEmployeeRoleQuestion = [
   },
 ];
 
-const updateEmployeeManagerQuestion = [
-  {
-    type: "list",
-    message: "For which employee would you like to update the manager?",
-    choices: [],
-    name: "specificEmployeeManagerUpdate",
-  },
-];
-
 const viewDepartmentTotalBudget = [
   {
-    type: "list",
-    message: "Please choose a department to view its total budget",
-    choices: [],
+    type: "input",
+    message: "Please type the name of a department to view its total budget",
     name: "viewSpecificDepartmentTotalBudget",
   },
 ];
@@ -225,6 +186,5 @@ module.exports = {
   removeRoleQuestion,
   removeDepartmentQuestion,
   updateEmployeeRoleQuestion,
-  updateEmployeeManagerQuestion,
   viewDepartmentTotalBudget,
 };

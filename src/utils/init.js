@@ -59,55 +59,47 @@ const init = async () => {
     if (chooseAction === "addEmployee") {
       // adds new employee to the database
       const answer = await inquirer.prompt(addEmployeeQuestions);
-      await db.addNewEmployee(answer);
-      console.log("Employee was added successfully!");
+      db.addNewEmployee(answer);
     }
 
     if (chooseAction === "addDepartment") {
       // adds new department to the database
       const answer = await inquirer.prompt(addDepartmentQuestion);
-      await db.addNewDepartment(answer);
+      db.addNewDepartment(answer);
     }
 
     if (chooseAction === "addRole") {
       // adds new role to the database
       const answer = await inquirer.prompt(addRoleQuestions);
-      await db.addNewRole(answer);
+      db.addNewRole(answer);
     }
 
     if (chooseAction === "removeEmployee") {
+      // removes an employee and all of its associated data
       const answer = await inquirer.prompt(removeEmployeeQuestion);
-
       db.removeEmployee(answer);
-
-      console.log(answer);
     }
 
     if (chooseAction === "removeRole") {
+      // removes a role and associated data
       const answer = await inquirer.prompt(removeRoleQuestion);
       db.removeRole(answer);
     }
 
     if (chooseAction === "removeDepartment") {
+      // department and associated data
       const answer = await inquirer.prompt(removeDepartmentQuestion);
       db.removeDepartment(answer);
     }
 
     if (chooseAction === "updateEmployeeRole") {
+      // updates an employee role
       const answers = await inquirer.prompt(updateEmployeeRoleQuestion);
-
-      console.log(answers);
-      // db.updateEmployeeRole(answers);
-    }
-
-    if (chooseAction === "updateEmployeeManager") {
-      const answer = await inquirer.prompt(updateEmployeeManagerQuestion);
-      console.log(answer);
+      db.updateEmployeeRole(answers);
     }
 
     if (chooseAction === "viewBudget") {
-      const answer = await inquirer.prompt(viewDepartmentTotalBudget);
-      console.log(answer);
+      console.log("This feature will be coming soon!");
     }
   }
 };
