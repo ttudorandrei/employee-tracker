@@ -19,10 +19,10 @@ const questions = [
         name: "View All Roles",
       },
 
-      {
-        value: "viewEmployeeByRole",
-        name: "View Employees By Role",
-      },
+      // {
+      //   value: "viewEmployeeByRole",
+      //   name: "View Employees By Role",
+      // },
 
       {
         value: "addEmployee",
@@ -193,7 +193,7 @@ const viewDepartmentTotalBudget = [
 
 module.exports = {
   questions,
-  viewEmployeesByRoleQuestion,
+  // viewEmployeesByRoleQuestion,
   addEmployeeQuestions,
   addDepartmentQuestion,
   addRoleQuestions,
