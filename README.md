@@ -8,8 +8,10 @@
   - [Table of Contents](#table-of-contents)
   - [Licence](#licence)
   - [Description](#description)
+  - [Schema](#schema)
   - [Installation](#installation)
   - [Usage](#usage)
+  - [Future Developments](#future-developments)
   - [Questions](#questions)
   - [Link to GitHub repository](#link-to-github-repository)
   - [Link to Video Recording demonstrating the working application](#link-to-video-recording-demonstrating-the-working-application)
@@ -40,9 +42,38 @@ SOFTWARE.
 
 ## Description
 
+A command-line app that allows the user to kkep track of his company. There are three tables, roles, employees and departments.
+
+## Schema
+
+![Employee Tracker Schema](src/assets/img/employees-tracker-MySQL.png)
+
 ## Installation
 
+- clone this repository into your local machine;
+
+- open the repository location into your terminal;
+- run `npm install` in your terminal;
+
+- open your MySQL Workbench;
+
+- copy - paste the schema and seed files into your MySQL Workbench following the instructions in the comments;
+- to start the application type `npm run start` into your terminal;
+
 ## Usage
+
+The user can:
+
+- add employees, roles and departments;
+- remove employees, roles and departments;
+- update employee roles;
+- view employees and their respective roles;
+
+## Future Developments
+
+- View total budget used by each department;
+- View all employees under the same manager;
+- View all employees that have the same role;
 
 ## Questions
 
@@ -57,4 +88,4 @@ You can view the GitHub Repository by clicking [here](https://github.com/ttudora
 
 ## Link to Video Recording demonstrating the working application
 
-You can view the GitHub Repository by clicking [here](#)
+You can view a recording of the working application by clicking [here]()
