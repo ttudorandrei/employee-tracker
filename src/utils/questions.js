@@ -166,9 +166,8 @@ const removeEmployeeQuestion = [
 
 const removeRoleQuestion = [
   {
-    type: "list",
-    message: "Please choose a role to remove",
-    choices: [],
+    type: "input",
+    message: "Please type in the name oft the role you want to remove",
     name: "specificRoleRemove",
   },
 ];

@@ -85,7 +85,7 @@ const init = async () => {
 
     if (chooseAction === "removeRole") {
       const answer = await inquirer.prompt(removeRoleQuestion);
-      console.log(answer);
+      db.removeRole(answer);
     }
 
     if (chooseAction === "removeDepartment") {

@@ -224,21 +224,21 @@ class Db {
     });
   };
 
-  removeEmployee = (answer) => {
-    const { employeeToRemoveFirstName, employeeToRemoveLastName } = answer;
+  removeRole = (answer) => {
+    const { specificRoleRemove } = answer;
 
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
         console.log(
-          `You have successfully removed ${employeeToRemoveFirstName} ${employeeToRemoveLastName}`
+          `You have successfully removed ${specificRoleRemove} from roles table`
         );
         resolve(rows);
       };
 
       this.connection.query(
-        "DELETE FROM employees WHERE first_name=? AND last_name=?",
-        [employeeToRemoveFirstName, employeeToRemoveLastName],
+        "DELETE FROM roles WHERE title=?",
+        specificRoleRemove,
         handleQuery
       );
     });
