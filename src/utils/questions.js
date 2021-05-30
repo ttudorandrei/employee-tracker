@@ -153,10 +153,14 @@ const addRoleQuestions = [
 
 const removeEmployeeQuestion = [
   {
-    type: "list",
-    message: "Please choose an employee to remove",
-    choices: "",
-    name: "specificEmployeeRemove",
+    type: "input",
+    message: "Please type the First Name of the employee to remove",
+    name: "employeeToRemoveFirstName",
+  },
+  {
+    type: "input",
+    message: "Please type the Last Name of the employee to remove",
+    name: "employeeToRemoveLastName",
   },
 ];
 
@@ -178,21 +182,21 @@ const removeDepartmentQuestion = [
   },
 ];
 
-const updateEmployeeQuestion = [
-  {
-    type: "list",
-    message: "Which employee would you like to update?",
-    choices: [],
-    name: "specificEmployeeUpdate",
-  },
-];
-
 const updateEmployeeRoleQuestion = [
   {
-    type: "list",
-    message: "For which employee would you like to update the role?",
-    choices: [],
-    name: "specificEmployeeRoleUpdate",
+    type: "input",
+    message: "Please type the First Name of the employee you want to update:",
+    name: "choiceEmployeeFirstName",
+  },
+  {
+    type: "input",
+    message: "Please type the Last Name of the employee you want to update:",
+    name: "choiceEmployeeLastName",
+  },
+  {
+    type: "input",
+    message: "Please type in the role id you want to attribute to the employee",
+    name: "newRoleId",
   },
 ];
 
@@ -213,22 +217,6 @@ const viewDepartmentTotalBudget = [
     name: "viewSpecificDepartmentTotalBudget",
   },
 ];
-// remove employee
-// step 1: present a list of all employees,
-// step 2: choose employee,
-//  step 3: cascade remove the selected employee
-
-// update employee
-// step 1: show list of all employees
-// step 2: update selected employee (name??)
-
-// update employee manager
-// step 1: show list of all employees
-// step 2: update selected employee manager (find syntax)
-
-// update employee role
-// step 1: show list of all employees
-// step 2: update selected employee role (find syntax)
 
 module.exports = {
   questions,
@@ -238,7 +226,6 @@ module.exports = {
   removeEmployeeQuestion,
   removeRoleQuestion,
   removeDepartmentQuestion,
-  updateEmployeeQuestion,
   updateEmployeeRoleQuestion,
   updateEmployeeManagerQuestion,
   viewDepartmentTotalBudget,

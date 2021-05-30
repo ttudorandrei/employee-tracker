@@ -1,8 +1,8 @@
 // dependencies
 const inquirer = require("inquirer");
 const mysql = require("mysql");
-const init = require("../utils/init");
 
+// creates a class for handling all of the init functionality
 class Db {
   constructor(database) {
     // object containing our connection setup
@@ -17,6 +17,8 @@ class Db {
     this.database = database;
     this.connection = mysql.createConnection(dbOptions);
   }
+
+  // function to connect to the db
   start() {
     return new Promise((resolve, reject) => {
       const onConnect = (err) => {
@@ -30,6 +32,7 @@ class Db {
     });
   }
 
+  // function to end the connection to the db
   end(message) {
     this.connection.end();
     console.log(
@@ -37,9 +40,12 @@ class Db {
     );
   }
 
+  // this will return all the employees in the database. if the answer in put inside a console.table(), the information will be formatted in a table.
   viewAllEmployeesFromDb() {
+    // this will execute a new promise. a callback function is needed
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
+        // if there is an error it will reject the query, otherwise it will execute it
         if (err) reject(err);
         console.log("This is a table presenting all the employees");
         resolve(rows);
@@ -52,8 +58,11 @@ class Db {
     });
   }
 
+  // this will return all the departments in the database. if the answer in put inside a console.table(), the information will be formatted in a table.
   viewAllDepartmentsFromDb = () => {
+    // this will execute a new promise. a callback function is needed
     return new Promise((resolve, reject) => {
+      // if there is an error it will reject the query, otherwise it will execute it
       const handleQuery = (err, rows) => {
         if (err) reject(err);
         console.log("This is a table presenting all the departments");
@@ -67,6 +76,7 @@ class Db {
     });
   };
 
+  // this will return all the roles in the database. if the answer in put inside a console.table(), the information will be formatted in a table.
   viewAllRolesFromDb = () => {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
@@ -92,28 +102,19 @@ class Db {
         resolve(rows);
       };
 
-      this.connection.query(
-        "INSERT INTO employees (first_name, last_name, role_id) VALUE (?, ?, ?)",
-        [employeeFirstName, employeeLastName, employeeRole],
-        function (err, result) {
-          if (err) throw err;
-        },
-        handleQuery
-      );
-
       if (hasManager) {
         this.connection.query(
-          "UPDATE employees SET manager_id=? WHERE first_name=? AND last_name=?",
-          [hasManager, employeeFirstName, employeeLastName],
-          function (err, result) {
-            if (err) throw err;
-            console.log(
-              `Employee ${employeeLastName}, ${employeeFirstName} was successfully added to the database!`
-            );
-          }
+          "INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUE (?, ?, ?, ?)",
+          [employeeFirstName, employeeLastName, employeeRole, hasManager],
+          handleQuery
+        );
+      } else {
+        this.connection.query(
+          "INSERT INTO employees (first_name, last_name, role_id) VALUE (?, ?, ?)",
+          [employeeFirstName, employeeLastName, employeeRole],
+          handleQuery
         );
       }
-      handleQuery;
     });
   };
 
@@ -133,8 +134,8 @@ class Db {
           console.log(
             `Department [${answer.newDepartmentName}] inserted into [departments] table`
           );
-        },
-        handleQuery
+        }
+        // handleQuery
       );
     });
   };
@@ -168,67 +169,42 @@ class Db {
     });
   };
 
-  updateEmployeeRole = () => {
-    // //////////////////////////////////////////////
-    return new Promise(async (resolve, reject) => {
+  updateEmployeeRole = (answers) => {
+    return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
         console.log(`You have successfully updated an employee role!`);
         resolve(rows);
       };
 
-      // get all employees
-      const employeeQuery = "SELECT * FROM employees";
-      const employeesList = await this.connection.query(employeeQuery);
-
-      const employeeChoices = (employees) => {
-        return employees.map((employee) => {
-          const { first_name, last_name } = employee;
-          return [
-            {
-              name: first_name,
-              value: "firstName",
-            },
-            {
-              name: last_name,
-              value: "lastName",
-            },
-          ];
-        });
-      };
-
-      const answers = await inquirer.prompt(
-        {
-          type: "list",
-          message: "Which employee would you like to update?",
-          choices: employeeChoices(employeesList),
-          name: "employeeChoice",
-        },
-        {
-          type: "input",
-          message:
-            "Please type in the role id you want to attribute to the employee",
-          name: "newRoleId",
-        }
-      );
-
       this.connection.query(
         "UPDATE employees SET role_id=? WHERE firstName=? AND lastName=?",
         answers.newRoleId,
-        answers.newRoleId,
-        answers.employeeChoice,
-        function (err, result) {
-          if (err) throw err;
-        },
+        answers.choiceEmployeeFirstName,
+        answers.choiceEmployeeLastName,
         handleQuery
       );
     });
+  };
 
-    // ///////////////////////////////////////
+  removeEmployee = (answer) => {
+    const { employeeToRemoveFirstName, employeeToRemoveLastName } = answer;
 
-    // prompt user to choose which employee he wants to update role for
-    // question choices should be an array made of the list of employees
-    // update role for chosen employee
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        console.log(
+          `You have successfully removed ${employeeToRemoveFirstName} ${employeeToRemoveLastName}`
+        );
+        resolve(rows);
+      };
+
+      this.connection.query(
+        "DELETE FROM employees WHERE first_name=? AND last_name=?",
+        [employeeToRemoveFirstName, employeeToRemoveLastName],
+        handleQuery
+      );
+    });
   };
 }
 
