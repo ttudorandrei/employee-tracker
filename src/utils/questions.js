@@ -19,11 +19,6 @@ const questions = [
         name: "View All Roles",
       },
 
-      // {
-      //   value: "viewEmployeeByRole",
-      //   name: "View Employees By Role",
-      // },
-
       {
         value: "viewEmployeesAndTheirRoles",
         name: "View All Employees and Their Roles",
@@ -77,15 +72,6 @@ const questions = [
     name: "chooseAction",
   },
 ];
-
-// const viewEmployeesByRoleQuestion = [
-//   {
-//     type: "input",
-//     message:
-//       "Please type in the role id for which you want to see the employees",
-//     name: "filterEmployeesByRole",
-//   },
-// ];
 
 // questions asked if the user chooses to add an employee
 const addEmployeeQuestions = [
@@ -198,7 +184,6 @@ const viewDepartmentTotalBudget = [
 
 module.exports = {
   questions,
-  // viewEmployeesByRoleQuestion,
   addEmployeeQuestions,
   addDepartmentQuestion,
   addRoleQuestions,

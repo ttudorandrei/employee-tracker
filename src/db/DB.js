@@ -91,26 +91,6 @@ class Db {
     });
   };
 
-  // vieEmployeesByRole = (answer) => {
-  //   const { filterEmployeesByRole } = answer;
-
-  //   return new Promise((resolve, reject) => {
-  //     const handleQuery = (err, rows) => {
-  //       if (err) reject(err);
-  //       console.log(
-  //         `This is a table presenting all employees that are working as ${filterEmployeesByRole}`
-  //       );
-  //       resolve(rows);
-  //     };
-
-  //     this.connection.query(
-  //       "SELECT * FROM employees WHERE role_id=?",
-  //       filterEmployeesByRole,
-  //       handleQuery
-  //     );
-  //   });
-  // };
-
   vieEmployeesAndRoles = () => {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {

@@ -56,13 +56,6 @@ const init = async () => {
       console.table(data);
     }
 
-    // if (chooseAction === "filterEmployeesByRole") {
-    //   // logs a table with all the employees that share the same role
-    //   const answer = await inquirer.prompt(viewEmployeesByRoleQuestion);
-    //   // const data = await db.vieEmployeesByRole(answer);
-    //   console.log(answer);
-    // }
-
     if (chooseAction === "viewEmployeesAndTheirRoles") {
       const data = await db.vieEmployeesAndRoles();
       console.table(data);
