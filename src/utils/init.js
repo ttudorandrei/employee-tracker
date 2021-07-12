@@ -5,7 +5,6 @@ const inquirer = require("inquirer");
 const Db = require("../db/DB");
 const {
   questions,
-  // viewEmployeesByRoleQuestion,
   addEmployeeQuestions,
   addDepartmentQuestion,
   addRoleQuestions,
@@ -19,6 +18,9 @@ const {
 // this will be called in index.js to run the application
 const init = async () => {
   const db = new Db("employee_tracker_db");
+  const employees = "employees";
+  const departments = "departments";
+  const roles = "roles";
 
   try {
     await db.start();
@@ -40,24 +42,24 @@ const init = async () => {
 
     if (chooseAction === "viewAllEmployees") {
       // logs a table containing the requested data
-      const data = await db.viewAllEmployeesFromDb();
+      const data = await db.viewAllFromDb(employees);
       console.table(data);
     }
 
     if (chooseAction === "viewAllDepartments") {
       // logs a table containing the requested data
-      const data = await db.viewAllDepartmentsFromDb();
+      const data = await db.viewAllFromDb(departments);
       console.table(data);
     }
 
     if (chooseAction === "viewAllRoles") {
       // logs a table containing the requested data
-      const data = await db.viewAllRolesFromDb();
+      const data = await db.viewAllFromDb(roles);
       console.table(data);
     }
 
     if (chooseAction === "viewEmployeesAndTheirRoles") {
-      const data = await db.vieEmployeesAndRoles();
+      const data = await db.joinTwoTables(employees, roles);
       console.table(data);
     }
 

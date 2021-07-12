@@ -39,26 +39,8 @@ class Db {
     );
   }
 
-  // this will return all the employees in the database. if the answer in put inside a console.table(), the information will be formatted in a table.
-  viewAllEmployeesFromDb() {
-    // this will execute a new promise. a callback function is needed
-    return new Promise((resolve, reject) => {
-      const handleQuery = (err, rows) => {
-        // if there is an error it will reject the query, otherwise it will execute it
-        if (err) reject(err);
-        console.log("This is a table presenting all the employees");
-        resolve(rows);
-      };
-
-      this.connection.query(
-        "SELECT * FROM employee_tracker_db.employees",
-        handleQuery
-      );
-    });
-  }
-
   // this will return all the departments in the database. if the answer in put inside a console.table(), the information will be formatted in a table.
-  viewAllDepartmentsFromDb = () => {
+  viewAllFromDb = (table) => {
     // this will execute a new promise. a callback function is needed
     return new Promise((resolve, reject) => {
       // if there is an error it will reject the query, otherwise it will execute it
@@ -69,29 +51,13 @@ class Db {
       };
 
       this.connection.query(
-        "SELECT * FROM employee_tracker_db.departments",
+        `SELECT * FROM employee_tracker_db.${table}`,
         handleQuery
       );
     });
   };
 
-  // this will return all the roles in the database. if the answer in put inside a console.table(), the information will be formatted in a table.
-  viewAllRolesFromDb = () => {
-    return new Promise((resolve, reject) => {
-      const handleQuery = (err, rows) => {
-        if (err) reject(err);
-        console.log("This is a table presenting all the roles");
-        resolve(rows);
-      };
-
-      this.connection.query(
-        "SELECT * FROM employee_tracker_db.roles",
-        handleQuery
-      );
-    });
-  };
-
-  vieEmployeesAndRoles = () => {
+  joinTwoTables = (table1, table2) => {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
@@ -100,7 +66,7 @@ class Db {
       };
 
       this.connection.query(
-        "SELECT employees.first_name, employees.last_name, roles.title FROM employees LEFT JOIN roles ON employees.role_id=roles.id_roles",
+        `SELECT ${table1}.first_name, ${table1}.last_name, ${table2}.title FROM employees LEFT JOIN roles ON ${table1}.role_id=${table2}.id_roles`,
         handleQuery
       );
     });
